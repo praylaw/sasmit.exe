@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#061426">
+  <meta name="robots" content="noindex, nofollow">
+  <title>SASMIT.EXE — Birthday Special</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' shape-rendering='crispEdges'%3E%3Crect width='8' height='8' fill='%23061426'/%3E%3Crect x='1' y='1' width='6' height='5' fill='%2371dcff'/%3E%3Crect x='2' y='2' width='4' height='3' fill='%230a2038'/%3E%3Crect x='3' y='7' width='2' height='1' fill='%2371dcff'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/fonts/PressStart2P.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/VT323.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <noscript><p class="noscript">SASMIT.EXE needs JavaScript to run. Please enable it and reload.</p></noscript>
+
+  <!-- ============ SCREEN 00 — SYSTEM BOOT ============ -->
+  <main id="boot" class="screen" aria-labelledby="boot-title">
+    <button type="button" class="btn btn--ghost btn--sm sound-fab" data-sound-toggle aria-pressed="true"></button>
+
+    <div class="boot is-pending" id="boot-grid">
+      <header class="boot__head">
+        <div class="boot__tags">
+          <span class="logo" data-sprite="logo"></span>
+          <span class="chip">BIRTHDAY SPECIAL</span>
+          <span class="chip">BUILD 18.10.26</span>
+        </div>
+        <h1 id="boot-title" tabindex="-1">SASMIT.EXE</h1>
+      </header>
+
+      <section class="boot__term" aria-label="System log">
+        <div class="panel panel--dark">
+          <span class="tab">BOOT.LOG</span>
+          <div class="term" id="term" aria-hidden="true"></div>
+        </div>
+        <p class="sr-only">Initializing birthday protocol. One special player has entered the system.</p>
+      </section>
+
+      <aside class="boot__side" aria-label="Player">
+        <div class="hero">
+          <div class="hero__sprite" data-sprite="player"></div>
+          <div class="hero__floor" aria-hidden="true"></div>
+        </div>
+        <div class="panel card" data-reveal>
+          <span class="tab">PLAYER 1</span>
+          <dl class="stats">
+            <div><dt>CODENAME</dt><dd id="boot-codename">CAMIIT</dd></div>
+            <div><dt>PLAYER LEVEL</dt><dd id="boot-level">21</dd></div>
+            <div><dt>STATUS</dt><dd class="is-ok" id="boot-status">READY</dd></div>
+            <div><dt>BIRTHDAY</dt><dd id="boot-date">26 DEC 2026</dd></div>
+          </dl>
+        </div>
+      </aside>
+
+      <div class="boot__cta" data-reveal>
+        <button type="button" class="btn btn--lg" id="start-btn">START GAME</button>
+        <button type="button" class="btn btn--text" id="new-game-btn" hidden>NEW GAME</button>
+      </div>
+    </div>
+    <div class="skyline" aria-hidden="true"></div>
+  </main>
+
+  <!-- ============ GAME SHELL (LEVEL 01–06) ============ -->
+  <div id="game" class="screen" hidden>
+    <header class="topbar">
+      <div class="brand"><span class="logo" data-sprite="logo" data-decorative></span><span>SASMIT.EXE</span></div>
+      <span class="topbar__spacer"></span>
+      <button type="button" class="btn btn--ghost btn--sm" data-sound-toggle aria-pressed="true"></button>
+      <button type="button" class="btn btn--ghost btn--sm" id="title-btn">TITLE</button>
+    </header>
+
+    <div class="hud">
+      <main class="hud__main" id="main">
+        <nav aria-label="Levels"><ol class="path" id="levels"></ol></nav>
+
+        <section class="panel mission" aria-labelledby="mission-title">
+          <p class="mission__code" id="mission-code"></p>
+          <h2 id="mission-title" tabindex="-1"></h2>
+          <p class="mission__desc" id="mission-desc"></p>
+          <div class="progress">
+            <span class="progress__label">PROGRESS</span>
+            <div class="bar" id="bar" role="progressbar" aria-label="Mission progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="bar-fill"></i></div>
+            <span class="progress__count" id="progress-text">—</span>
+          </div>
+          <button type="button" class="btn btn--ghost btn--sm" id="hint-btn" aria-expanded="false" aria-controls="hint">HINT</button>
+          <p class="hint" id="hint" hidden></p>
+        </section>
+
+        <section class="panel stage-panel" aria-label="Game stage">
+          <span class="tab">STAGE</span>
+          <div class="stage" id="stage"></div>
+        </section>
+
+        <section class="textbox" aria-label="Messages">
+          <span class="tab tab--ice">SYSTEM</span>
+          <div class="dialog" id="dialog" role="log" aria-live="polite"></div>
+        </section>
+      </main>
+
+      <aside class="hud__side" aria-label="Player status">
+        <section class="panel profile">
+          <div class="profile__avatar" data-sprite="player" data-decorative></div>
+          <div class="profile__info">
+            <p class="profile__name" id="hud-codename"></p>
+            <p class="profile__lv">LV <span id="hud-level"></span></p>
+            <div class="pips" id="hud-pips" aria-hidden="true"></div>
+            <p class="profile__cleared">CLEARED <span id="hud-cleared"></span></p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel__title">ITEMS</h2>
+          <ul class="slots" id="inventory" aria-label="Inventory"></ul>
+          <p class="slot-caption" id="slot-caption"></p>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel__title">SYSTEM</h2>
+          <button type="button" class="btn btn--ghost btn--block" id="reset-btn">RESET</button>
+          <p class="note" id="save-note" hidden>Progress can't be saved in this browser, so it will be lost on refresh.</p>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+    <form method="dialog" class="confirm">
+      <h2 id="confirm-title">RESET PROGRESS?</h2>
+      <p>All levels, rewards and saved progress will be erased. This can't be undone.</p>
+      <div class="confirm__actions">
+        <button class="btn btn--ghost" value="cancel">CANCEL</button>
+        <button class="btn" value="confirm">RESET</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Urutan penting: config → state → sprites → audio → level → app -->
+  <script src="js/config.js"></script>
+  <script src="js/game-state.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/levels/_stub.js"></script>
+  <script src="js/levels/memory-database.js"></script>
+  <script src="js/levels/player-diagnostics.js"></script>
+  <script src="js/levels/sing-along.js"></script>
+  <script src="js/levels/plushie-gang.js"></script>
+  <script src="js/levels/drilling-boss.js"></script>
+  <script src="js/levels/final-save-file.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
